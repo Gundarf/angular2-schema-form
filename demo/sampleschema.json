@@ -266,5 +266,16 @@
 		"title": "Part 5 - Confirmation",
 		"fields": ["confirmationMail","password"]
 	}],
+	"tabs":[{
+			"id": "tab_1",
+			"title": "Tab 1",
+			"fieldsets":["part_1", "part_2"]
+		},
+		{
+			"id": "tab_2",
+			"title": "Tab 2",
+			"fieldsets":["part_3", "part_4", "part_5"]
+		}
+	],
 	"required": ["firstName", "lastName", "transactionNumber","password"]
 }

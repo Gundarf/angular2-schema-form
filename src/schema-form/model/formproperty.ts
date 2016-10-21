@@ -213,6 +213,10 @@ export abstract class PropertyGroup extends FormProperty {
     return property;
   }
 
+  public getFieldset(fieldId: string): any {
+    return this.schema.fieldsets.find(x => x.id == fieldId);
+  }
+
   public forEachChild(fn: (formProperty: FormProperty, str: String) => void) {
     for (let propertyId in this.properties) {
       let property = this.properties[propertyId];
@@ -244,5 +248,3 @@ export abstract class PropertyGroup extends FormProperty {
     return this === this.root;
   }
 }
-
-
