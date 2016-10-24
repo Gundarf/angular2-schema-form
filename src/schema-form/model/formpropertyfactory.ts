@@ -45,6 +45,9 @@ export class FormPropertyFactory {
       case "array":
         newProperty = new ArrayProperty(this, this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
+      case "help":
+        newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
+      break;
       default:
         throw new TypeError(`Undefined type ${schema.type}`);
     }

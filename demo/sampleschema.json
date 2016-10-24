@@ -230,6 +230,11 @@
 				"label": "Reset",
 				"id": "reset"
 			}]
+		},
+		"helpTest": {
+			"id": "helptest",
+			"type": "help",
+			"value": "<p class=\"alert alert-info\"> This is a helper text</p>"
 		}
 	},
 	"buttons": [{
@@ -243,7 +248,7 @@
 	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
-		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "colors","survey"]
+		"fields":[ "helpTest", "firstName", "lastName", "bornOn","moreInfo", "colors","survey"]
 	},
 	{
 		"id": "part_2",

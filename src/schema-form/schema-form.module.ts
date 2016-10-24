@@ -19,7 +19,8 @@ import {
   RadioWidget,
   RangeWidget,
   SelectWidget,
-  StringWidget
+  StringWidget,
+  HelpWidget
 } from "./defaultwidgets";
 
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -40,6 +41,7 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
     RangeWidget,
     SelectWidget,
     StringWidget,
+    HelpWidget
   ],
   entryComponents: [
     FormElementComponent,
@@ -55,6 +57,7 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
     RangeWidget,
     SelectWidget,
     StringWidget,
+    HelpWidget
   ],
   exports: [
     FormComponent,
@@ -68,7 +71,8 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
     RadioWidget,
     RangeWidget,
     SelectWidget,
-    StringWidget
+    StringWidget,
+    HelpWidget
   ]
 })
 export class SchemaFormModule {}
