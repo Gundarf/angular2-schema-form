@@ -21,6 +21,7 @@ export abstract class FormProperty {
   private _root: PropertyGroup;
   private _parent: PropertyGroup;
   private _path: string;
+  protected _submitable: boolean = true;
 
   constructor(
     schemaValidatorFactory: SchemaValidatorFactory,
@@ -39,6 +40,10 @@ export abstract class FormProperty {
       this._root = <PropertyGroup><any>this;
     }
     this._path = path;
+  }
+
+  public get submitable(): boolean {
+    return this._submitable;
   }
 
   public get valueChanges() {

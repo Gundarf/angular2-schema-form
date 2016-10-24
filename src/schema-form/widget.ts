@@ -31,3 +31,5 @@ export class ControlWidget extends Widget<FormProperty> implements AfterViewInit
 export class ArrayLayoutWidget extends Widget<ArrayProperty> {}
 
 export class ObjectLayoutWidget extends Widget<ObjectProperty> {}
+
+export class HelpLayoutWidget extends Widget<ObjectProperty> {}

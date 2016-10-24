@@ -4,6 +4,7 @@ import { StringProperty } from "./stringproperty";
 import { BooleanProperty } from "./booleanproperty";
 import { ObjectProperty } from "./objectproperty";
 import { ArrayProperty } from "./arrayproperty";
+import { HelpProperty } from "./helpproperty";
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
 import { ValidatorRegistry } from "./validatorregistry";
 
@@ -46,7 +47,7 @@ export class FormPropertyFactory {
         newProperty = new ArrayProperty(this, this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
       case "help":
-        newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
+        newProperty = new HelpProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
       default:
         throw new TypeError(`Undefined type ${schema.type}`);

@@ -56,7 +56,7 @@ export class ObjectProperty extends PropertyGroup {
   private reduceValue(): void {
     let value = {};
     this.forEachChild((property, propertyId: string) => {
-      if (property.visible) {
+      if (property.visible && property.submitable) {
         value[propertyId] = property.value;
       }
     });
