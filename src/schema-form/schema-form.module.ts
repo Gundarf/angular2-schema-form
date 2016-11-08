@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
 import {
   FormsModule,
   ReactiveFormsModule
@@ -26,7 +26,7 @@ import {
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
-  imports : [BrowserModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule],
+  imports : [CommonModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule],
   declarations: [
     FormElementComponent,
     FormComponent,
