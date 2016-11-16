@@ -79,7 +79,7 @@ export abstract class FormProperty {
   }
 
   public get valid() {
-    return this._errors === null && (this.required ? this.value!=null:true);
+    return this._errors === null;
   }
 
   public abstract setValue(value: any, onlySelf: boolean);
@@ -106,7 +106,6 @@ private requireValidator = (value, prop, form) => {
   if (value === null || value == "") {
     errors[0] = {};
     errors[0][this.path] = {"expectedValue": "should not be empty"};
-    console.log(errors);
   }
 
   return errors;
