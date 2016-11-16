@@ -1,4 +1,4 @@
-<div class="widget form-group">
+<div class="widget form-group" [class.has-error]="!formProperty.valid">
     <label [attr.for]="id" class="horizontal control-label">
     	{{ schema.title }}
     </label>
