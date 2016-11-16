@@ -79,7 +79,7 @@ export abstract class FormProperty {
   }
 
   public get valid() {
-    return this._errors === null;
+    return this._errors === null && (this.required ? this.value!=null:true);
   }
 
   public abstract setValue(value: any, onlySelf: boolean);
@@ -101,6 +101,16 @@ export abstract class FormProperty {
 
   }
 
+private requireValidator = (value, prop, form) => {
+  let errors = [];
+  if (value === null || value == "") {
+    errors[0] = {};
+    errors[0][this.path] = {"expectedValue": "should not be empty"};
+    console.log(errors);
+  }
+
+  return errors;
+}
   /**
    *  @internal
    */
@@ -115,6 +125,11 @@ export abstract class FormProperty {
     if (customValidator) {
       let customErrors = customValidator(this.value, this, this.findRoot()) ;
       errors = this.mergeErrors(errors, customErrors);
+    }
+    if (this.required)
+    {
+      let requiredErrors = this.requireValidator(this.value, this, this.findRoot());
+      errors = this.mergeErrors(errors, requiredErrors);
     }
     if (errors.length === 0) {
       errors = null;

@@ -56,12 +56,18 @@ export class FormPropertyFactory {
     if (newProperty instanceof PropertyGroup && parent === null) {
       this.initializeRoot(newProperty);
     }
-
+    this.setRequired(newProperty);
     return newProperty;
   }
 
   private initializeRoot(rootProperty: PropertyGroup) {
     rootProperty.reset(null, true);
     rootProperty._bindVisibility();
+  }
+
+  private setRequired(prop: FormProperty) {
+    if (prop.root.schema.required.indexOf(prop.path.split("/").pop()) > - 1) {
+        prop.required = true;
+    }
   }
 }

@@ -5,8 +5,6 @@
 		"firstName": {
 			"type": "string",
 			"placeholder": "First name",
-			"minLength": 2,
-			"maxLength": 40,
 			"title": "First name",
 			"description": "First name"
 		},
