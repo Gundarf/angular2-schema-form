@@ -6,6 +6,7 @@
 			"type": "string",
 			"placeholder": "First name",
 			"title": "First name",
+			"htmlClass": "col-sm-6",
 			"description": "First name"
 		},
 		"lastName": {
@@ -14,21 +15,24 @@
 			"minLength": 2,
 			"maxLength": 40,
 			"title": "Last name",
-			"description": "Last name"
+			"htmlClass": "col-sm-6"
 		},
 		"bornOn": {
 			"type": "string",
 			"format": "date",
 			"widget": "date",
-			"default": "1800-12-12",
+			"default": "1960-12-12",
 			"placeholder": "Ex: 2009-03-11",
-			"description": "Born on"
+			"description": "Born on",
+			"title": "Born on",
+			"htmlClass": "col-sm-12"
 		},
 		"moreInfo":{
 			"type": "boolean",
 			"widget": "checkbox",
 			"description":"More information?",
-			"default": true
+			"default": true,
+			"title": "More information?"
 		},
 		"survey": {
 			"type": "object",
