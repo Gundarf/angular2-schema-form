@@ -6,6 +6,7 @@
 					<form-element [formProperty]="formProperty.getProperty(fieldId)"></form-element>
 				</div>
 		</fieldset>
+		<button *ngFor="let button of getButtons(tab)" (click)="button.action($event)" class="btn btn-default">{{button.label}}</button>
 	</tab>
 </tabset>
 
