@@ -15,4 +15,8 @@ export class StringWidget extends ControlWidget {
             return this.schema.widget.id
         }
     }
+
+    getLabelClasses() {
+      return "horizontal control-label " + this.formProperty.schema.labelClasses != undefined ? this.formProperty.schema.labelClasses : "";
+    }
 }
