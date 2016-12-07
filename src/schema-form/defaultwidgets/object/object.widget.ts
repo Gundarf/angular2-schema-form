@@ -61,4 +61,16 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
     }
     return result;
   }
+
+  getBtnClasses(btn) {
+    let classes = btn.htmlClass || "";
+    // Ajout des classes par défaut si besoin
+    if (classes.indexOf("btn-") == -1) {
+      classes = "btn-default " + classes;
+    }
+    if (classes.indexOf("btn ") == -1) {
+      classes = "btn " + classes;
+    }
+    return classes;
+  }
 }
