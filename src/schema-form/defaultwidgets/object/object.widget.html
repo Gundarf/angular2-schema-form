@@ -1,5 +1,5 @@
 <tabset>
-	<tab *ngFor="let tab of formProperty.schema.tabs" [heading]="tab.title">
+	<tab *ngFor="let tab of formProperty.schema.tabs" [heading]="tab.title" [active]="tab.active" (select)="onSelect($event)">
 		<fieldset *ngFor="let fieldsetId of tab.fieldsets">
 				<legend *ngIf="formProperty.getFieldset(fieldsetId).title">{{formProperty.getFieldset(fieldsetId).title}}</legend>
 				<div *ngFor="let fieldId of formProperty.getFieldset(fieldsetId).fields">

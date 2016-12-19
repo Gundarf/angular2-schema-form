@@ -27,10 +27,14 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
 
   private parseButtons() {
     if (this.formProperty.schema.tabs !== undefined) {
+      let idx = 0;
       for (let tab of this.formProperty.schema.tabs) {
         if (tab.buttons !== undefined) {
-          this.buttons = this.buttons.concat(tab.buttons);
+          // Ajout de l'id du tab à chaque bouton
+          let commpleBtns = tab.buttons.map((btn) => {btn.tabId = tab.id; btn.tabIndex = idx; return btn})
+          this.buttons = this.buttons.concat(commpleBtns);
         }
+        ++idx;
       }
       for (let button of this.buttons) {
         this.createButtonCallback(button);
@@ -38,11 +42,31 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
     }
   }
 
+  public onSelect(e) {
+    for (let tab of this.formProperty.schema.tabs) {
+      if (tab.title == e.heading) {
+        tab.active = true;
+      }
+      else {
+        tab.active = false;
+      }
+    }
+
+  }
+
   private createButtonCallback(button) {
     button.action = (e) => {
       let action;
       if (button.id && (action = this.actionRegistry.get(button.id))) {
         if (action) {
+          // On passe au moins le tabId dans les paramètres de l'action du bouton
+          if (button.parameters === undefined) {
+            button.parameters = {"tabId": button.tabId, "tabIndex": button.tabIndex};
+          }
+          else {
+            button.parameters.tabId = button.tabId;
+            button.parameters.tabIndex = button.tabIndex;
+          }
           action(this.formProperty, button.parameters);
         }
       }
