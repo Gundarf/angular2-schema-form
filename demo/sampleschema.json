@@ -250,7 +250,7 @@
 	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
-		"fields":[ "helpTest", "firstName", "lastName", "bornOn","moreInfo", "colors","survey"]
+		"fields":[ "helpTest", "firstName", "lastName", "bornOn","moreInfo", "favoriteColor", "colors","survey"]
 	},
 	{
 		"id": "part_2",

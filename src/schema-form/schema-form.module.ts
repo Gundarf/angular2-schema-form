@@ -1,14 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   ReactiveFormsModule
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { FormElementComponent } from "./formelement.component";
-import { FormComponent } from "./form.component";
-import { WidgetChooserComponent } from "./widgetchooser.component";
-import { WidgetRegistry } from "./widgetregistry";
+import { FormElementComponent } from './formelement.component';
+import { FormComponent } from './form.component';
+import { WidgetChooserComponent } from './widgetchooser.component';
 import {
   ArrayWidget,
   ObjectWidget,
@@ -21,7 +20,7 @@ import {
   SelectWidget,
   StringWidget,
   HelpWidget
-} from "./defaultwidgets";
+} from './defaultwidgets';
 
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 import {FileUploadModule } from "ng2-file-upload";

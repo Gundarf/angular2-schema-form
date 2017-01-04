@@ -1,17 +1,17 @@
 import {
   Component,
   OnInit
-} from "@angular/core";
+} from '@angular/core';
 
-import { ObjectLayoutWidget } from "../../widget";
+import { ObjectLayoutWidget } from '../../widget';
 
 import {
   ActionRegistry
 } from "../../model";
 
 @Component({
-  selector: "form-object",
-  template: require("./object.widget.html")
+  selector: 'sf-form-object',
+  template: require('./object.widget.html')
 })
 export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
 

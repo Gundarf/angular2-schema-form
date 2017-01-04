@@ -1,13 +1,12 @@
-import {
-  Component, OnInit
-} from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { ControlWidget } from "../../widget";
+import { ControlWidget } from '../../widget';
+
 import { FileUploader } from "ng2-file-upload";
 
 @Component({
-  selector: "file-widget",
-  template: require("./file.widget.html")
+  selector: 'sf-file-widget',
+  template: require('./file.widget.html')
 })
 export class FileWidget extends ControlWidget implements OnInit{
 

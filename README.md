@@ -128,7 +128,7 @@ The Form component provides the `onChange` output binding of which value represe
 For instance, you can display the current forms's value with the following template:
 
 ```js
-template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{json | value}}'
+template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{value | json}}'
 ```
 
 ### Widgets
@@ -319,7 +319,7 @@ export class AppComponent {
 
   // Declare a mapping between action ids and their implementations
   myValidators = {
-    "passwordCheck": (value, property, form) => {
+    "/passwordCheck": (value, property, form) => {
       if (controls.password !== undefined
           && controls.password.valid
           && value !== values.password
@@ -436,7 +436,7 @@ If it is not formatted the way Angular 2 Schema Form expects or if some elements
   template: '<schema-form [schema]="schema" [model]="model" [actions]="actions"></schema-form>'
 })
 export class MyComponent {
-  private schema:any = 
+  private schema:any =
     'properties': {}
   };
   private actions:any = {};
