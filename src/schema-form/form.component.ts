@@ -53,6 +53,8 @@ export class FormComponent implements OnChanges {
 
   @Output() onChange = new EventEmitter<{value: any}>();
 
+  @Input() options: any = null;
+
   rootProperty: FormProperty = null;
 
   constructor(
@@ -80,6 +82,9 @@ export class FormComponent implements OnChanges {
       SchemaPreprocessor.preprocess(this.schema);
       this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
       this.rootProperty.valueChanges.subscribe(value => { this.onChange.emit({value: value}); });
+      if (this.options !== undefined) {
+        this.rootProperty.options = this.options;
+      }
     }
 
     if (this.schema && (changes.model || changes.schema )) {

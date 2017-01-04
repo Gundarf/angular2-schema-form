@@ -23,6 +23,8 @@ export abstract class FormProperty {
   private _path: string;
   protected _submitable: boolean = true;
 
+  public options: any ;
+
   constructor(
     schemaValidatorFactory: SchemaValidatorFactory,
     private validatorRegistry: ValidatorRegistry,

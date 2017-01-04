@@ -24,9 +24,10 @@ import {
 } from "./defaultwidgets";
 
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
+import {FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
-  imports : [CommonModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule],
+  imports : [CommonModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule, FileUploadModule],
   declarations: [
     FormElementComponent,
     FormComponent,
