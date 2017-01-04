@@ -44,6 +44,7 @@
     "lodash.get": "^4.4.2",
     "methods": "^1.1.2",
     "ng2-bootstrap": "^1.1.15",
+    "ng2-file-upload": "^1.1.4-2",
     "raw-loader": "0.5.1",
     "validator": "^5.5.0",
     "z-schema": "^3.17.0"
