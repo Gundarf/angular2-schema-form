@@ -10,7 +10,7 @@
     "check": "npm-check --skip-unused",
     "test": "karma start",
     "watch:test": "npm run test -- --auto-watch --no-single-run",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "lint": "tslint --force ./src/**/*.ts ./test/**/*.ts",
     "clean": "rimraf dist",
     "watch": "webpack --display-error-details --watch",
     "start": "webpack-dev-server",
