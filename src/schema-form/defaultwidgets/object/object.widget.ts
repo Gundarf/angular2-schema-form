@@ -7,7 +7,7 @@ import { ObjectLayoutWidget } from '../../widget';
 
 import {
   ActionRegistry
-} from "../../model";
+} from '../../model';
 
 @Component({
   selector: 'sf-form-object',
@@ -31,7 +31,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
       for (let tab of this.formProperty.schema.tabs) {
         if (tab.buttons !== undefined) {
           // Ajout de l'id du tab à chaque bouton
-          let commpleBtns = tab.buttons.map((btn) => {btn.tabId = tab.id; btn.tabIndex = idx; return btn})
+          let commpleBtns = tab.buttons.map((btn) => { btn.tabId = tab.id; btn.tabIndex = idx; return btn; });
           this.buttons = this.buttons.concat(commpleBtns);
         }
         ++idx;
@@ -44,7 +44,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
 
   public onSelect(e) {
     for (let tab of this.formProperty.schema.tabs) {
-      if (tab.title == e.heading) {
+      if (tab.title === e.heading) {
         tab.active = true;
       }
       else {
@@ -61,7 +61,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
         if (action) {
           // On passe au moins le tabId dans les paramètres de l'action du bouton
           if (button.parameters === undefined) {
-            button.parameters = {"tabId": button.tabId, "tabIndex": button.tabIndex};
+            button.parameters = { 'tabId': button.tabId, 'tabIndex': button.tabIndex };
           }
           else {
             button.parameters.tabId = button.tabId;
@@ -78,7 +78,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
     let result = [];
     for (let button of this.buttons) {
       for (let tabBtn of tab.buttons) {
-        if (button.id == tabBtn.id) {
+        if (button.id === tabBtn.id) {
           result.push(button);
         }
       }
@@ -87,13 +87,13 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
   }
 
   getBtnClasses(btn) {
-    let classes = btn.htmlClass || "";
+    let classes = btn.htmlClass || '';
     // Ajout des classes par défaut si besoin
-    if (classes.indexOf("btn-") == -1) {
-      classes = "btn-default " + classes;
+    if (classes.indexOf('btn-') === -1) {
+      classes = 'btn-default ' + classes;
     }
-    if (classes.indexOf("btn ") == -1) {
-      classes = "btn " + classes;
+    if (classes.indexOf('btn ') === -1) {
+      classes = 'btn ' + classes;
     }
     return classes;
   }

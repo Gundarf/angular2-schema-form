@@ -1,4 +1,4 @@
-export * from "./help/help.widget";
+export * from './help/help.widget';
 
 export * from './array/array.widget';
 export * from './object/object.widget';

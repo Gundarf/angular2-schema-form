@@ -43,7 +43,7 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
     this.register('radio', RadioWidget);
     this.register('boolean', CheckboxWidget);
     this.register('checkbox', CheckboxWidget);
-    this.register("help", HelpWidget);
+    this.register('help', HelpWidget);
 
     this.setDefaultWidget(StringWidget);
   }
