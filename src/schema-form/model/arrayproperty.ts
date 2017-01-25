@@ -1,7 +1,7 @@
-import { FormProperty, PropertyGroup } from "./formproperty";
-import { FormPropertyFactory } from "./formpropertyfactory";
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { ValidatorRegistry } from "./validatorregistry";
+import { FormProperty, PropertyGroup } from './formproperty';
+import { FormPropertyFactory } from './formpropertyfactory';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
 
 export class ArrayProperty extends PropertyGroup {
 
@@ -67,8 +67,10 @@ export class ArrayProperty extends PropertyGroup {
 
   private resetProperties(value: any) {
     for (let idx in value) {
-      let property = this.addProperty();
-      property.reset(value[idx], true);
+      if (value.hasOwnProperty(idx)) {
+        let property = this.addProperty();
+        property.reset(value[idx], true);
+      }
     }
   }
 

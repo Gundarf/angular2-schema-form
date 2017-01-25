@@ -1,12 +1,12 @@
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import "rxjs/add/observable/combineLatest";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/do";
-import "rxjs/add/operator/distinctUntilChanged";
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/distinctUntilChanged';
 
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { ValidatorRegistry } from "./validatorregistry";
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -105,9 +105,9 @@ export abstract class FormProperty {
 
 private requireValidator = (value, prop, form) => {
   let errors = [];
-  if (value === null || value == "") {
+  if (value === null || value == '') {
     errors[0] = {};
-    errors[0][this.path] = {"expectedValue": "should not be empty"};
+    errors[0][this.path] = {'expectedValue': 'should not be empty'};
   }
 
   return errors;
@@ -161,7 +161,7 @@ private requireValidator = (value, prop, form) => {
     let base: PropertyGroup = null;
 
     let result = null;
-    if (path[0] === "/") {
+    if (path[0] === '/') {
       base = this.findRoot();
       result = base.getProperty(path.substr(1));
     } else {
@@ -196,16 +196,18 @@ private requireValidator = (value, prop, form) => {
     if (visibleIf !== undefined) {
       let propertiesBinding = [];
       for (let dependencyPath in visibleIf) {
-        let property = this.searchProperty(dependencyPath);
-        if (property) {
-          let valueCheck = property.valueChanges.map(
-            value => visibleIf[dependencyPath].indexOf(value) !== -1
-          );
-          let visibilityCheck = property._visibilityChanges;
-          let and = Observable.combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
-          propertiesBinding.push(and);
-        } else {
-          console.warn("Can't find property " + dependencyPath + " for visibility check of " + this.path);
+        if (visibleIf.hasOwnProperty(dependencyPath)) {
+          let property = this.searchProperty(dependencyPath);
+          if (property) {
+            let valueCheck = property.valueChanges.map(
+              value => visibleIf[dependencyPath].indexOf(value) !== -1
+            );
+            let visibilityCheck = property._visibilityChanges;
+            let and = Observable.combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
+            propertiesBinding.push(and);
+          } else {
+            console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
+          }
         }
       }
 
@@ -223,7 +225,7 @@ export abstract class PropertyGroup extends FormProperty {
   protected properties: FormProperty[] | {[key: string]: FormProperty} = null;
 
   getProperty(path: string) {
-    let subPathIdx = path.indexOf("/");
+    let subPathIdx = path.indexOf('/');
     let propertyId = subPathIdx !== -1 ? path.substr(0, subPathIdx) : path ;
 
     let property = this.properties[propertyId];
@@ -240,8 +242,10 @@ export abstract class PropertyGroup extends FormProperty {
 
   public forEachChild(fn: (formProperty: FormProperty, str: String) => void) {
     for (let propertyId in this.properties) {
-      let property = this.properties[propertyId];
-      fn(property, propertyId);
+      if (this.properties.hasOwnProperty(propertyId)) {
+        let property = this.properties[propertyId];
+        fn(property, propertyId);
+      }
     }
   }
 

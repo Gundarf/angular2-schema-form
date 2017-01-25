@@ -3,7 +3,7 @@
 		<fieldset *ngFor="let fieldsetId of tab.fieldsets">
 				<legend *ngIf="formProperty.getFieldset(fieldsetId).title">{{formProperty.getFieldset(fieldsetId).title}}</legend>
 				<div *ngFor="let fieldId of formProperty.getFieldset(fieldsetId).fields">
-					<form-element [formProperty]="formProperty.getProperty(fieldId)"></form-element>
+					<sf-form-element [formProperty]="formProperty.getProperty(fieldId)"></sf-form-element>
 				</div>
 		</fieldset>
 		<br/>
@@ -15,7 +15,7 @@
 <fieldset *ngFor="let fieldset of formProperty.schema.fieldsets">
 	<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
 	<div *ngFor="let fieldId of fieldset.fields">
-		<form-element [formProperty]="formProperty.getProperty(fieldId)"></form-element>
+		<sf-form-element [formProperty]="formProperty.getProperty(fieldId)"></sf-form-element>
 	</div>
 </fieldset>
 </div>

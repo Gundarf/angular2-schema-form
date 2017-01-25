@@ -3,33 +3,33 @@ import {
   ChangeDetectorRef,
   Input,
   OnInit
-} from "@angular/core";
+} from '@angular/core';
 
 import {
   FormControl
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { Widget } from "./widget";
+import { Widget } from './widget';
 
 import {
   ActionRegistry,
   FormProperty
-} from "./model";
+} from './model';
 
 @Component({
-  selector: "form-element",
-  template: require("./formelement.component.html")
+  selector: 'sf-form-element',
+  template: require('./formelement.component.html')
 })
 export class FormElementComponent implements OnInit {
 
+  private static counter = 0;
+
   @Input() formProperty: FormProperty;
-  control: FormControl = new FormControl("", () => null);
+  control: FormControl = new FormControl('', () => null);
 
   private widget: Widget<any> = null;
 
   private buttons = [];
-
-  private static counter = 0;
 
   constructor(private actionRegistry: ActionRegistry) {}
 
@@ -61,7 +61,7 @@ export class FormElementComponent implements OnInit {
 
   private onWidgetInstanciated(widget: Widget<any>) {
     this.widget = widget;
-    let id = "field" + (FormElementComponent.counter++);
+    let id = 'field' + (FormElementComponent.counter++);
 
     this.widget.formProperty = this.formProperty;
     this.widget.schema = this.formProperty.schema;

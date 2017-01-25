@@ -1,5 +1,5 @@
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { FormProperty } from "./formproperty";
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { FormProperty } from './formproperty';
 
 export abstract class AtomicProperty extends FormProperty {
 

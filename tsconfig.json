@@ -9,7 +9,14 @@
         "outDir":"dist/",
         "declaration": true,
         "noEmitHelpers": false,
-        "strictNullChecks": false
+        "strictNullChecks": false,
+        "typeRoots": [
+           "../../node_modules/@types",
+           "../../node_modules"
+          ],
+          "types": [
+            "core-js", "node", "jasmine"
+          ]
     },
     "awesomeTypescriptLoaderOptions": {
         "useWebpackText": true,

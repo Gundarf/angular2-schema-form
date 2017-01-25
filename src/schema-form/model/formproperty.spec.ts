@@ -1,11 +1,11 @@
-import { FormProperty, PropertyGroup } from "./formproperty";
+import { FormProperty, PropertyGroup } from './formproperty';
 
 import {
   ZSchemaValidatorFactory,
   SchemaValidatorFactory
-} from "../schemavalidatorfactory";
+} from '../schemavalidatorfactory';
 
-import { ValidatorRegistry } from "./validatorregistry";
+import { ValidatorRegistry } from './validatorregistry';
 
 class FormPropertyImpl extends FormProperty {
 
@@ -25,7 +25,7 @@ class PropertyGroupImpl extends PropertyGroup {
   reset() {}
 }
 
-describe("FormProperty", () => {
+describe('FormProperty', () => {
   let THE_SCHEMA_VALIDATOR_FACTORY =  new ZSchemaValidatorFactory();
   let THE_VALIDATOR_REGISTRY = new ValidatorRegistry();
   let THE_PROPERTY_SCHEMA = {};
@@ -36,19 +36,19 @@ describe("FormProperty", () => {
   let propertyGroup: PropertyGroup;
 
   beforeEach(() => {
-    THE_VALIDATOR = jasmine.createSpy("a_validator");
-    spyOn(THE_SCHEMA_VALIDATOR_FACTORY, "createValidatorFn").and.returnValue(THE_VALIDATOR);
+    THE_VALIDATOR = jasmine.createSpy('a_validator');
+    spyOn(THE_SCHEMA_VALIDATOR_FACTORY, 'createValidatorFn').and.returnValue(THE_VALIDATOR);
 
-    propertyGroup = new PropertyGroupImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PARENT_PROPERTY_SCHEMA, null, "");
-    spyOn(propertyGroup, "updateValueAndValidity");
-    formProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, "");
+    propertyGroup = new PropertyGroupImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PARENT_PROPERTY_SCHEMA, null, '');
+    spyOn(propertyGroup, 'updateValueAndValidity');
+    formProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, '');
   });
 
-  it("should create a validator on construction", () => {
+  it('should create a validator on construction', () => {
     expect(THE_SCHEMA_VALIDATOR_FACTORY.createValidatorFn).toHaveBeenCalledWith(THE_PROPERTY_SCHEMA);
   });
 
-  it("should validate using the validator created on construction", () => {
+  it('should validate using the validator created on construction', () => {
 
     formProperty._runValidation();
 
@@ -56,9 +56,9 @@ describe("FormProperty", () => {
 
   });
 
-  describe("With a parent", () => {
+  describe('With a parent', () => {
 
-    it("should notify parent when changed", () => {
+    it('should notify parent when changed', () => {
       formProperty.updateValueAndValidity();
 
       expect(propertyGroup.updateValueAndValidity).toHaveBeenCalled();
@@ -66,10 +66,10 @@ describe("FormProperty", () => {
 
   });
 
-  describe("Without a parent", () => {
+  describe('Without a parent', () => {
 
-    it("should not throw when changed", () => {
-      let orphanFormProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, "");
+    it('should not throw when changed', () => {
+      let orphanFormProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, '');
       let updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
 
       expect(updateValue).not.toThrow();

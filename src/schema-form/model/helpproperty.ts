@@ -1,7 +1,7 @@
-import { AtomicProperty } from "./atomicproperty";
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { PropertyGroup } from "./formproperty";
-import { ValidatorRegistry } from "./validatorregistry";
+import { AtomicProperty } from './atomicproperty';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { PropertyGroup } from './formproperty';
+import { ValidatorRegistry } from './validatorregistry';
 
 export class HelpProperty extends AtomicProperty {
 
@@ -17,6 +17,6 @@ export class HelpProperty extends AtomicProperty {
   }
 
   protected fallbackValue() {
-    return "";
+    return '';
   }
 }

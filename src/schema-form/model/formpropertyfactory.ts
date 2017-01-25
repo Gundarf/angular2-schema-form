@@ -1,52 +1,52 @@
-import { FormProperty, PropertyGroup } from "./formproperty";
-import { NumberProperty } from "./numberproperty";
-import { StringProperty } from "./stringproperty";
-import { BooleanProperty } from "./booleanproperty";
-import { ObjectProperty } from "./objectproperty";
-import { ArrayProperty } from "./arrayproperty";
-import { HelpProperty } from "./helpproperty";
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { ValidatorRegistry } from "./validatorregistry";
+import { FormProperty, PropertyGroup } from './formproperty';
+import { NumberProperty } from './numberproperty';
+import { StringProperty } from './stringproperty';
+import { BooleanProperty } from './booleanproperty';
+import { ObjectProperty } from './objectproperty';
+import { ArrayProperty } from './arrayproperty';
+import { HelpProperty } from './helpproperty';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
 
 export class FormPropertyFactory {
   constructor(private schemaValidatorFactory: SchemaValidatorFactory, private validatorRegistry: ValidatorRegistry) {}
   createProperty(schema: any, parent: PropertyGroup = null, propertyId?: string): FormProperty {
     let newProperty = null;
-    let path = "";
+    let path = '';
     if (parent) {
       path += parent.path;
       if (parent.parent !== null) {
-        path += "/";
+        path += '/';
       }
-      if (parent.type === "object") {
+      if (parent.type === 'object') {
         path += propertyId;
-      } else if (parent.type === "array") {
-        path += "*";
+      } else if (parent.type === 'array') {
+        path += '*';
       } else {
-        throw "Instanciation of a FormProperty with an unknown parent type: " + parent.type;
+        throw 'Instanciation of a FormProperty with an unknown parent type: ' + parent.type;
       }
     } else {
-      path = "/";
+      path = '/';
     }
 
     switch (schema.type) {
-      case "integer":
-      case "number":
+      case 'integer':
+      case 'number':
         newProperty = new NumberProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
-      case "string":
+      case 'string':
         newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
-      case "boolean":
+      case 'boolean':
         newProperty = new BooleanProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
-      case "object":
+      case 'object':
         newProperty = new ObjectProperty(this, this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
-      case "array":
+      case 'array':
         newProperty = new ArrayProperty(this, this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
-      case "help":
+      case 'help':
         newProperty = new HelpProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
       default:
@@ -66,7 +66,7 @@ export class FormPropertyFactory {
   }
 
   private setRequired(prop: FormProperty) {
-    if (prop.root.schema.required.indexOf(prop.path.split("/").pop()) > - 1) {
+    if (prop.root.schema.required.indexOf(prop.path.split('/').pop()) > - 1) {
         prop.required = true;
     }
   }

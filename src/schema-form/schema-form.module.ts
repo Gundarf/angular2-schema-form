@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   ReactiveFormsModule
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { FormElementComponent } from "./formelement.component";
-import { FormComponent } from "./form.component";
-import { WidgetChooserComponent } from "./widgetchooser.component";
-import { WidgetRegistry } from "./widgetregistry";
+import { FormElementComponent } from './formelement.component';
+import { FormComponent } from './form.component';
+import { WidgetChooserComponent } from './widgetchooser.component';
+import { WidgetRegistry } from './widgetregistry';
 import {
   ArrayWidget,
   ObjectWidget,
@@ -20,11 +20,12 @@ import {
   RangeWidget,
   SelectWidget,
   StringWidget,
-  HelpWidget
-} from "./defaultwidgets";
+  HelpWidget,
+  DateWidget
+} from './defaultwidgets';
 
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
-import {FileUploadModule } from "ng2-file-upload";
+import {FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports : [CommonModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule, FileUploadModule],
@@ -42,7 +43,8 @@ import {FileUploadModule } from "ng2-file-upload";
     RangeWidget,
     SelectWidget,
     StringWidget,
-    HelpWidget
+    HelpWidget,
+    DateWidget
   ],
   entryComponents: [
     FormElementComponent,
@@ -58,7 +60,8 @@ import {FileUploadModule } from "ng2-file-upload";
     RangeWidget,
     SelectWidget,
     StringWidget,
-    HelpWidget
+    HelpWidget,
+    DateWidget
   ],
   exports: [
     FormComponent,
@@ -73,7 +76,8 @@ import {FileUploadModule } from "ng2-file-upload";
     RangeWidget,
     SelectWidget,
     StringWidget,
-    HelpWidget
+    HelpWidget,
+    DateWidget
   ]
 })
 export class SchemaFormModule {}

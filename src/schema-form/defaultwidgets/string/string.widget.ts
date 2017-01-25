@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-import { ControlWidget } from "../../widget";
+import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: "string-widget",
-  template: require("./string.widget.html")
+  selector: 'sf-string-widget',
+  template: require('./string.widget.html')
 })
 export class StringWidget extends ControlWidget {
 
@@ -17,6 +17,6 @@ export class StringWidget extends ControlWidget {
     }
 
     getLabelClasses() {
-      return "horizontal control-label " + this.formProperty.schema.labelClasses != undefined ? this.formProperty.schema.labelClasses : "";
+      return 'horizontal control-label ' + this.formProperty.schema.labelClasses !== undefined ? this.formProperty.schema.labelClasses : '';
     }
 }
