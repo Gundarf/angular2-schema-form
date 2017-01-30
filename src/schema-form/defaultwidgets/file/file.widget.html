@@ -16,11 +16,7 @@
 			</button>
 		</div>
 	</div>
-	<div *ngIf="!isUploaded" class="col-md-9" style="margin-bottom: 40px">
-
-            <h3>Upload queue</h3>
-            <p>Queue length: {{ uploader?.queue?.length }}</p>
-
+	<div *ngIf="!isUploaded && uploader.queue?.length > 0" class="col-md-9" style="margin-bottom: 40px">
             <table class="table">
                 <thead>
                 <tr>
