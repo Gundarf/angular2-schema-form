@@ -39,7 +39,7 @@ export class FileWidget extends ControlWidget implements OnInit {
   }
   this.uploader = new FileUploader({url: myUrl, headers: myHeaders, queueLimit: 1});
   // withCredentials = false pour passer CORS
-  this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+  this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; file.alias = this.formProperty.path.split('/').pop()};
   this.uploader.onSuccessItem = (item, response, status, headers) => {
       this.isUploaded = true;
       this.generatedName = JSON.parse(response).generated_name;
@@ -53,10 +53,6 @@ export class FileWidget extends ControlWidget implements OnInit {
         && this.formProperty.root.options.rmFct !== undefined
         &&  this.formProperty.root.options.rmFct !== null) {
           this.rmFile = this.formProperty.root.options.rmFct;
-    }
-
-    this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
-      //  form.append('data', JSON.stringify({field: this.formProperty.path, value: "{name: this.fileName, generated_name: this.generatedName}"}));
     }
   }
 
@@ -79,6 +75,14 @@ export class FileWidget extends ControlWidget implements OnInit {
 
   ngAfterViewInit() {
     let control = this.control;
+    this.formProperty.valueChanges.subscribe((newValue) => {
+      if (newValue !== undefined && newValue !== "") {
+        this.isUploaded = true;
+        this.control.setValue(this.formProperty.value, {emitEvent: false});
+        this.fileName = JSON.parse(this.formProperty.value).name;
+        this.generatedName = JSON.parse(this.formProperty.value).generated_name;
+      }
+    });
     this.formProperty.errorsChanges.subscribe((errors) => {
       control.setErrors(errors, true);
     });
