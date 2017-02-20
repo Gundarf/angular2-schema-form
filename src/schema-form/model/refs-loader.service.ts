@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/merge';
+import 'rxjs/add/Observable/concat';
 
 @Injectable()
 export class RefsLoaderService {
@@ -15,7 +16,7 @@ export class RefsLoaderService {
   // Derefence $ref urls in jsonSchema.
   // Return an observable of objects {path: xx, val: xx}
   // where path : path to the $ref in the schema
-  // val : resulting values of the dereferencing  
+  // val : resulting values of the dereferencing
   public dereference(jsonSchema: any) {
     let schema = jsonSchema;
     let derefs = this.findRefs(jsonSchema);
@@ -24,7 +25,9 @@ export class RefsLoaderService {
       if (obs === undefined || obs === null) {
         obs = this.resolveExternalRefs(entry.url).map((res) => {return {path: entry.path, val: res};});
       }
-      obs.merge(this.resolveExternalRefs(entry.url).map((res) => {return {path: entry.path, val: res};}));
+      else {
+        obs = Observable.concat(obs, this.resolveExternalRefs(entry.url).map((res) => {return {path: entry.path, val: res};}));
+      }
     });
     return obs;
   }
