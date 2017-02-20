@@ -8,9 +8,9 @@ import { ControlWidget } from '../../widget';
 })
 export class SelectWidget extends ControlWidget {
 
-  // Contournement pour qu'angular détecte bien que l'on a un array
-  // Problème au fait que le schema est chargé en asynchrone à cause des
-  // références externes 
+  // Workaround to enable angular to detect that we are dealing with an array
+  // Necessary because the schema is loaded asynchronously
+  // because of external references
   public transform(value)
   {
     if (value !== undefined)
