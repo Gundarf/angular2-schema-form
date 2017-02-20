@@ -76,7 +76,7 @@ export class FormComponent implements OnChanges {
       }
       obj[keys[i]] = val.val;
     });
-    
+
     console.log(changes);
     if (changes.validators) {
       this.setValidators();
