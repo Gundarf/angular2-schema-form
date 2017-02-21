@@ -67,15 +67,18 @@ export class FormComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes: any) {
-    this.rls.dereference(this.schema).subscribe((val) => {
-      let obj = this.schema;
-      let keys = val.path.split('/');
-      let i = 1;
-      for (i = 1; i < keys.length - 1; i++) {
-        obj = obj[keys[i]];
-      }
-      obj[keys[i]] = val.val;
-    });
+    let obs = this.rls.dereference(this.schema);
+    if (obs !== undefined && obs !== null) {
+      obs.subscribe((val) => {
+        let obj = this.schema;
+        let keys = val.path.split('/');
+        let i = 1;
+        for (i = 1; i < keys.length - 1; i++) {
+          obj = obj[keys[i]];
+        }
+        obj[keys[i]] = val.val;
+      });
+    }
 
     console.log(changes);
     if (changes.validators) {
