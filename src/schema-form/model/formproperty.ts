@@ -190,7 +190,7 @@ private requireValidator = (value, prop, form) => {
     }
   }
 
-  // A fiel is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
+  // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
   public _bindVisibility() {
     let visibleIf = this.schema.visibleIf;
     if (visibleIf !== undefined) {
@@ -200,7 +200,13 @@ private requireValidator = (value, prop, form) => {
           let property = this.searchProperty(dependencyPath);
           if (property) {
             let valueCheck = property.valueChanges.map(
-              value => visibleIf[dependencyPath].indexOf(value) !== -1
+              value => {
+                if (visibleIf[dependencyPath].indexOf('$ANY$') !== -1) {
+                  return value.length > 0;
+                }else {
+                  return visibleIf[dependencyPath].indexOf(value) !== -1;
+                }
+              }
             );
             let visibilityCheck = property._visibilityChanges;
             let and = Observable.combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
