@@ -16,7 +16,7 @@ export class HelpProperty extends AtomicProperty {
     this._submitable = false;
   }
 
-  protected fallbackValue() {
+  public fallbackValue() {
     return '';
   }
 }
