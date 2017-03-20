@@ -4,7 +4,18 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-select-widget',
-  templateUrl: './select.widget.html'
+  template: `<div class="widget form-group">
+  	<div [class]="formProperty.schema.htmlClass">
+  		<label [attr.for]="id" class="horizontal control-label">
+  			{{ schema.title }}
+  		</label>
+  		<select [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control" [tooltip]="schema.tooltip" [tooltipEnable]="!!schema.tooltip" >
+  		<option *ngFor="let option of transform(schema.oneOf)" [ngValue]="option.enum[0]" >{{option.description}}</option>
+  		</select>
+  		<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
+  		<span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
+  	</div>
+  </div>`
 })
 export class SelectWidget extends ControlWidget {
 

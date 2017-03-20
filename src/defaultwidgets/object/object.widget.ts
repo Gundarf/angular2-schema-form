@@ -13,7 +13,27 @@ import {
 
 @Component({
   selector: 'sf-form-object',
-  templateUrl: './object.widget.html'
+  template: `<tabset>
+  	<tab *ngFor="let tab of getTabList()" [heading]="tab.title" [active]="tab.active" (select)="onSelect($event)">
+  		<fieldset *ngFor="let fieldsetId of tab.fieldsets">
+  				<legend *ngIf="formProperty.getFieldset(fieldsetId).title">{{formProperty.getFieldset(fieldsetId).title}}</legend>
+  				<div *ngFor="let fieldId of formProperty.getFieldset(fieldsetId).fields">
+  					<sf-form-element [formProperty]="formProperty.getProperty(fieldId)"></sf-form-element>
+  				</div>
+  		</fieldset>
+  		<br/>
+  		<button *ngFor="let button of getButtons(tab)" (click)="button.action($event)" [class]="getBtnClasses(button)">{{button.label}}</button>
+  	</tab>
+  </tabset>
+
+  <div *ngIf="!formProperty.schema.tabs">
+  <fieldset *ngFor="let fieldset of formProperty.schema.fieldsets">
+  	<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
+  	<div *ngFor="let fieldId of fieldset.fields">
+  		<sf-form-element [formProperty]="formProperty.getProperty(fieldId)"></sf-form-element>
+  	</div>
+  </fieldset>
+  </div>`
 })
 export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
 
