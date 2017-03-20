@@ -1,0 +1,3 @@
+<form>
+<sf-form-element *ngIf="rootProperty" [formProperty]="rootProperty"> </sf-form-element>
+</form>

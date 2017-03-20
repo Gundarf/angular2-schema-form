@@ -1,0 +1,15 @@
+/__build__
+/__server_build__
+/node_modules
+/coverage
+npm-debug.log
+
+/dist/
+/doc/
+
+.idea
+.vscode
+.typingsrc
+*.tgz
+.svn
+

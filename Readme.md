@@ -24,7 +24,7 @@ You can also test the module on [the website](https://makinacorpus.github.io/ang
 To use Angular2 Schema Form in your project simply execute the following command:
 
 ```bash
-npm install angular2-schema-form --save-dev
+npm install angular2-schema-form --save
 ```
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
@@ -41,7 +41,7 @@ import { Component } from "@angular/core";
 @Component({
   selector:"minimal-app",
   // Bind the "mySchema" member to the schema input of the Form component.
-  template: '<schema-form [schema]="mySchema"></schema-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>'
 })
 
 export class AppComponent {
@@ -88,18 +88,6 @@ import { AppComponent } from "./app.component";
 export class AppModule {}
 ```
 
-Bootstrap your Module:
-
-```js
-// main.browser.ts
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-
-import { AppModule } from "app.module";
-
-// Until Angular2 RC5, we have to specify we are using new forms API
-platformBrowserDynamic().bootstrapModule(AppModule);
-```
-
 The code above creates a form with three required fields.
 The validation state of each field is reflected by the class of each of them which can be either "has-error" or "has-success".
 Validation is done everytime a field's value changes.
@@ -115,7 +103,7 @@ You can set the initial form's value through the `model` input:
 
 ```js
 @Component({
-template: '<schema-form [schema]="mySchema" [model]="myModel"></schema-form>'
+template: '<sf-form [schema]="mySchema" [model]="myModel"></sf-form>'
 })
 export class AppComponent {
   mySchema = {...};
@@ -128,7 +116,7 @@ The Form component provides the `onChange` output binding of which value represe
 For instance, you can display the current forms's value with the following template:
 
 ```js
-template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{json | value}}'
+template: '<sf-form [schema]="mySchema" (onChange)="value=$event.value"></sf-form>{{value | json}}'
 ```
 
 ### Widgets
@@ -242,7 +230,7 @@ Each schema can be extended by adding buttons after its widget.
 @Component({
   selector:"minimal-app",
   // Bind the actions map to the the "actions" input
-  template: '<schema-form [schema]="mySchema" [actions]="myActions"></schema-form>'
+  template: '<sf-form [schema]="mySchema" [actions]="myActions"></sf-form>'
 })
 export class AppComponent {
   // The schema that will be used to generate a form
@@ -295,7 +283,7 @@ To perform this check we create a custom validator:
 @Component({
   selector:"minimal-app",
   // Bind the validator map to the the "validators" input
-  template: '<schema-form [schema]="mySchema" [validators]="myValidators"></schema-form>'
+  template: '<sf-form [schema]="mySchema" [validators]="myValidators"></sf-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -340,7 +328,7 @@ Adding the value $ANY$ to the array of conditional values,will make the field vi
 ```js
 @Component({
   selector:"minimal-app",
-  template: '<schema-form [schema]="mySchema"></schema-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -357,9 +345,9 @@ export class AppComponent {
         "type": "boolean",
         "description": "I want to receive the newsletter",
         "default": false,
-        "visibleIf": {
-                 "comment": ['$ANY$']
-               }
+         "visibleIf": {
+                  "comment": ['$ANY$']
+                }
       },
       "registerEmail": {
         "type": "string",
@@ -437,7 +425,7 @@ If it is not formatted the way Angular 2 Schema Form expects or if some elements
 ```javascript
 @Component({
   selector: 'plone-view-edit',
-  template: '<schema-form [schema]="schema" [model]="model" [actions]="actions"></schema-form>'
+  template: '<sf-form [schema]="schema" [model]="model" [actions]="actions"></sf-form>'
 })
 export class MyComponent {
   private schema:any =
@@ -467,7 +455,88 @@ export class MyComponent {
 
 ## Creating a custom widget
 Angular2 schema form allows you to create your own widget.
-Currently this feature is not completely defined and the API could change.
+
+Note: Currently this feature is not completely defined and the API might change.
+
+You need to derivate the widget you want to customize:
+```javascript
+@Component({
+  selector: 'mdl-sf-string-widget',
+  templateUrl: './string.widget.html'
+})
+export class MyStringWidget extends StringWidget {}
+```
+
+You need to provide its html template (let's imagine we want to use the Material Design text field):
+```html
+<mdl-textfield [label]="schema.description" type="string" floating-label
+    [name]="name" [attr.readonly]="schema.readOnly?true:null"
+    [attr.id]="id"
+    [attr.disabled]="schema.readOnly?true:null"
+    [formControl]="control"></mdl-textfield>
+```
+
+And you need to declare it in a custom registry:
+```javascript
+import { MyStringWidget } from './mystring';
+
+export class MyWidgetRegistry extends DefaultWidgetRegistry {
+  constructor() {
+    super();
+
+    this.register('string',  MyStringWidget);
+  }
+}
+```
+
+And then you need to provide your registry in your module:
+```javascript
+providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
+```
+
+Note: you will also need to import `ReactiveFormsModule` if you want to be able to use form control:
+```javascript
+import { ReactiveFormsModule } from '@angular/forms';
+...
+@NgModule({
+  ...
+  imports: [
+    ...
+    ReactiveFormsModule,
+  ]
+```
+
+## Development and build
+
+To work on this package:
+
+```bash
+npm install
+```
+
+You also need the peer dependencies:
+
+```bash
+npm run install:peers
+```
+
+Then you can build:
+
+```bash
+npm run build
+```
+
+If you want to work with the demo:
+
+```bash
+npm install -g @angular/cli
+cd ./tests
+npm install
+cd ./src/app
+ln -s ../../../src/
+cd -
+ng serve
+```
 
 ## Building the API documentation
 You can build an HTML version of the API documentation by running the following command:

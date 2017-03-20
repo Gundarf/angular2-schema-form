@@ -1,8 +1,28 @@
-export { FormComponent } from './schema-form/form.component';
-export { WidgetRegistry } from './schema-form/widgetregistry';
-export { Validator } from './schema-form/model/validator';
-export { DefaultWidgetRegistry } from './schema-form/defaultwidgets/defaultwidgetregistry';
+export { FormComponent } from './form.component';
+export { FormElementComponent } from './formelement.component';
+export { WidgetChooserComponent } from './widgetchooser.component';
+export { WidgetRegistry } from './widgetregistry';
+export { Validator } from './model/validator';
 
-
-export * from './schema-form/widget';
-export * from './schema-form/schema-form.module';
+export {
+    Widget,
+    ControlWidget,
+    ArrayLayoutWidget,
+    ObjectLayoutWidget,
+} from './widget';
+export {
+    ArrayWidget,
+    CheckboxWidget,
+    FileWidget,
+    IntegerWidget,
+    ObjectWidget,
+    RadioWidget,
+    RangeWidget,
+    SelectWidget,
+    StringWidget,
+    TextAreaWidget,
+    DateWidget,
+    HelpWidget,
+    DefaultWidgetRegistry,
+} from './defaultwidgets';
+export { SchemaFormModule } from './schema-form.module';

@@ -1,0 +1,3 @@
+proxy="http://proxy.isae.fr:3128"
+rejectUnauthorized=false
+

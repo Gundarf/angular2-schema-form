@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+
+import { ControlWidget } from '../../widget';
+
+@Component({
+  selector: 'sf-string-widget',
+  templateUrl: './string.widget.html'
+})
+export class StringWidget extends ControlWidget {
+
+    getInputType() {
+        if(!this.schema.widget.id || this.schema.widget.id === 'string') {
+            return 'text'
+        } else {
+            return this.schema.widget.id
+        }
+    }
+
+    getLabelClasses() {
+      return 'horizontal control-label ' + this.formProperty.schema.labelClasses !== undefined ? this.formProperty.schema.labelClasses : '';
+    }
+}

@@ -1,0 +1,3 @@
+<form>
+<form-element *ngIf="rootProperty" [formProperty]="rootProperty"> </form-element>
+</form>

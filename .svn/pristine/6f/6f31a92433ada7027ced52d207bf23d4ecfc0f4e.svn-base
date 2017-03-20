@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+npm-debug.log
+compiled/
+dist/
+coverage/
+.idea
+.vscode
+.typingsrc
+*.tgz
+.svn
+yarn.lock
+/.vscode
+release/
