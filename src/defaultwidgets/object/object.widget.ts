@@ -86,8 +86,6 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
                 }
               }
             );
-        //    let visibilityCheck = property._visibilityChanges;
-          //  let and = Observable.combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
             propertiesBinding.push(valueCheck);
           } else {
             console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + tab.id);
