@@ -4,7 +4,7 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-select-widget',
-  template: `<div class="widget form-group">
+  template: `<div class="widget form-group" [class.has-error]="!formProperty.valid">
   	<div [class]="formProperty.schema.htmlClass">
   		<label [attr.for]="id" class="horizontal control-label">
   			{{ schema.title }}
