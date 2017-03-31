@@ -35,7 +35,12 @@ export class FormPropertyFactory {
         newProperty = new NumberProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
       break;
       case 'string':
-        newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
+        if (schema.widget !== undefined && schema.widget == 'help') {
+          newProperty = new HelpProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
+        }
+        else {
+          newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
+        }
       break;
       case 'boolean':
         newProperty = new BooleanProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
