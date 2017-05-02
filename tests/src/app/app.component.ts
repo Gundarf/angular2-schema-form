@@ -71,6 +71,11 @@ export class AppComponent {
     this.actions["addItem"] = (property, parameters) => {
         property.addItem(parameters.value);
     };
-}
+
+  }
+
+  changeSchema() {
+    this.schema = require('./otherschema.json');
+  }
 
 }

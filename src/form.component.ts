@@ -19,6 +19,7 @@ import {
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 import { WidgetFactory } from './widgetfactory';
+import { TerminatorService } from './terminator.service';
 
 import { RefsLoaderService } from './model/refs-loader.service';
 
@@ -28,9 +29,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
 
 @Component({
   selector: 'sf-form',
-  template: `<form>
-    <sf-form-element *ngIf="rootProperty" [formProperty]="rootProperty"> </sf-form-element>
-  </form>`,
+  template: `<form><sf-form-element
+  *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element></form>`,
   providers: [RefsLoaderService,
     ActionRegistry,
     ValidatorRegistry,
@@ -43,7 +43,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
       provide: FormPropertyFactory,
       useFactory: useFactory,
       deps: [SchemaValidatorFactory, ValidatorRegistry]
-    }
+    },
+    TerminatorService,
   ]
 })
 export class FormComponent implements OnChanges {
@@ -67,7 +68,8 @@ export class FormComponent implements OnChanges {
     private actionRegistry: ActionRegistry,
     private validatorRegistry: ValidatorRegistry,
     private cdr: ChangeDetectorRef,
-    private rls: RefsLoaderService
+    private rls: RefsLoaderService,
+    private terminator: TerminatorService
   ) { }
 
   ngOnChanges(changes: any) {
@@ -84,7 +86,6 @@ export class FormComponent implements OnChanges {
       });
     }
 
-//    console.log(changes);
     if (changes.validators) {
       this.setValidators();
     }
@@ -93,12 +94,14 @@ export class FormComponent implements OnChanges {
       this.setActions();
     }
 
-    if (!this.schema.type) {
+    if (this.schema && !this.schema.type) {
       this.schema.type = 'object';
     }
 
     if (this.schema && changes.schema) {
-//      console.log(this.schema, changes.schema);
+      if (!changes.schema.firstChange) {
+        this.terminator.destroy();
+      }
       SchemaPreprocessor.preprocess(this.schema);
       this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
       this.rootProperty.valueChanges.subscribe(value => { this.onChange.emit({value: value}); });
