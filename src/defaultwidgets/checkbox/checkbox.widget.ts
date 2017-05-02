@@ -11,7 +11,7 @@ import { ControlWidget } from '../../widget';
         </label>
     	<div class="checkbox">
     		<label class="horizontal control-label">
-    			<input [tooltip]="schema.tooltip" [tooltipEnable]="!!schema.tooltip" [formControl]="control" [attr.name]="name" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [attr.disabled]="schema.readOnly">
+    			<input [tooltip]="schema.tooltip" [isDisabled]="!!!schema.tooltip" [formControl]="control" [attr.name]="name" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [attr.disabled]="schema.readOnly">
     			<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
     			<span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
     		</label>

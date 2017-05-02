@@ -4,7 +4,7 @@
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/makinacorpus/angular2-schema-form"
+    "url": "git+https://github.com/makinacorpus/angular2-schema-form"
   },
   "main": "dist/index.js",
   "typings": "dist/src/index.d.ts",
@@ -15,10 +15,6 @@
     "build:jit": "tsc -p tsconfig.json",
     "build": "npm run clean && npm run build:aot",
     "install:peers": "npm-install-peers"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/makinacorpus/angular2-schema-form"
   },
   "licenses": [
     {
@@ -36,8 +32,8 @@
     "body-parser": "^1.15.1",
     "lodash.get": "^4.4.2",
     "methods": "^1.1.2",
-    "ng2-bootstrap": "^1.1.15",
     "ng2-file-upload": "^1.1.4-2",
+    "ngx-bootstrap": "^1.6.6",
     "raw-loader": "0.5.1",
     "validator": "^5.5.0",
     "z-schema": "^3.17.0"

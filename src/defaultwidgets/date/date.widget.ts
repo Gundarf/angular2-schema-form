@@ -11,7 +11,7 @@ import { ControlWidget } from "../../widget";
       <label [attr.for]="id" class="horizontal control-label">
       	{{ schema.title }}
       </label>
-      <input [tooltip]="schema.tooltip" [tooltipEnable]="!!schema.tooltip" type="text" [ngModel]="dt | date:'dd/MM/yyyy'" class="text-widget.id textline-widget form-control"
+      <input [tooltip]="schema.tooltip" [isDisabled]="!!!schema.tooltip" type="text" [ngModel]="dt | date:'dd/MM/yyyy'" class="text-widget.id textline-widget form-control"
             (focus)="showDatePicker = true" [formControl]="control" [name]="name" (change)="showDatePicker = false">
       <div *ngIf="showDatePicker" style="position: absolute; z-index:10; min-height:290px;">
         <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" (selectionDone)="showDatePicker = false"></datepicker>

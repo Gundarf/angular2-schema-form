@@ -27,11 +27,15 @@ import {
   DefaultWidget
 } from './default.widget';
 
-import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import {FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
-  imports : [CommonModule, FormsModule, ReactiveFormsModule, Ng2BootstrapModule, FileUploadModule],
+  imports : [TooltipModule.forRoot(), DatepickerModule.forRoot(), TabsModule.forRoot(),
+    CommonModule, FormsModule, ReactiveFormsModule, FileUploadModule],
   declarations: [
     FormElementComponent,
     FormComponent,

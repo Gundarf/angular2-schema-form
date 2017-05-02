@@ -11,7 +11,7 @@ import { ControlWidget } from '../../widget';
   		{{ schema.title }}
   	</label>
       <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
-  	<textarea [tooltip]="schema.tooltip" [tooltipEnable]="!!schema.tooltip" [attr.readonly]="schema.readOnly" [name]="name" [class]="inputClass" [formControl]="control"></textarea>
+  	<textarea [tooltip]="schema.tooltip" [isDisabled]="!!!schema.tooltip" [attr.readonly]="schema.readOnly" [name]="name" [class]="inputClass" [formControl]="control"></textarea>
     </div>
   </div>`
 })
