@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -87,6 +88,7 @@ import {FileUploadModule } from 'ng2-file-upload';
     StringWidget,
     HelpWidget,
     DateWidget
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class SchemaFormModule {}

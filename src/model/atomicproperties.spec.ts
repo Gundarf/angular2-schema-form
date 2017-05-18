@@ -45,7 +45,7 @@ describe('Atomic properties', () => {
       expect(atomicPropertyWithDefault.value).toBe(THE_DEFAULT_VALUE);
     });
 
-    it('reset with no argument, and no default value in schema use property's type fallback default', () => {
+    it('reset with no argument, and no default value in schema use property\'s type fallback default', () => {
       let fallback = Symbol();
       spyOn(atomicProperty, 'fallbackValue').and.returnValue(fallback);
 
