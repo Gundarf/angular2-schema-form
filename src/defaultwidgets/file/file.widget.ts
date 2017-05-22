@@ -95,11 +95,7 @@ export class FileWidget extends ControlWidget implements OnInit {
 
   ngOnInit() {
     this.genNameInputName = this.name + "-gen";
-    let myUrl: string = (this.formProperty.root.options !== undefined
-                         && this.formProperty.root.options !== null
-                         && this.formProperty.root.options.uploadService !== undefined
-                         &&  this.formProperty.root.options.uploadService !== null) ?
-                      this.formProperty.root.options.uploadService : ''
+    let myUrl: string = this.getMyUrl();
 
   let myHeaders = [];
   if (this.formProperty.root.options !== undefined
@@ -153,10 +149,28 @@ export class FileWidget extends ControlWidget implements OnInit {
         this.fileName = JSON.parse(this.formProperty.value).name;
         this.generatedName = JSON.parse(this.formProperty.value).generated_name;
       }
+      else if (this.formProperty.value !== undefined || this.formProperty.value !== "") {
+        this.isUploaded = false;
+        this.uploader.clearQueue();
+        this.control.setValue(this.formProperty.value, {emitEvent: false});
+        this.filePickerControl.setValue(this.formProperty.value, {emitEvent: false});
+      }
+      if (this.uploader.options.url != this.getMyUrl()) {
+        this.uploader.setOptions({url: this.getMyUrl()});
+      }
     });
     this.formProperty.errorsChanges.subscribe((errors) => {
       control.setErrors(errors, true);
     });
     this.filePickerControl.valueChanges.subscribe((newValue) => { this.isUploaded = false;});
+  }
+
+  private getMyUrl() : string {
+    let myUrl: string = (this.formProperty.root.options !== undefined
+                         && this.formProperty.root.options !== null
+                         && this.formProperty.root.options.uploadService !== undefined
+                         &&  this.formProperty.root.options.uploadService !== null) ?
+                      this.formProperty.root.options.uploadService : '';
+    return myUrl;
   }
 }

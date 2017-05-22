@@ -110,6 +110,10 @@ export class FormComponent implements OnChanges {
       }
     }
 
+    if (changes.options && this.options !== undefined) {
+      this.rootProperty.options = this.options;
+    }
+
     if (this.schema && (changes.model || changes.schema )) {
       this.rootProperty.reset(this.model, false);
       this.cdr.detectChanges();
