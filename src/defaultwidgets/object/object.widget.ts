@@ -11,10 +11,16 @@ import {
   ActionRegistry
 } from '../../model';
 
+// Un bug dans ngxbootstrap empêche de supprimer des onglets dynamiquement. Solutions:
+// Désactiver les onglets (comportement actuel)
+// Coder les onglets dans angular2-schema-form
+// Forker ngx/bootstrap
+// https://github.com/valor-software/ngx-bootstrap/issues/1774
 @Component({
   selector: 'sf-form-object',
   template: `<tabset>
-  	<tab *ngFor="let tab of getTabList()" [heading]="tab.title" [active]="tab.active" (select)="onSelect($event)">
+  	<tab *ngFor="let tab of formProperty.schema.tabs" [heading]="tab.title" [active]="tab.active" (select)="onSelect($event)"
+      [disabled]="!isTabVisible(tab)">
   		<fieldset *ngFor="let fieldsetId of tab.fieldsets">
   				<legend *ngIf="formProperty.getFieldset(fieldsetId).title">{{formProperty.getFieldset(fieldsetId).title}}</legend>
   				<div *ngFor="let fieldId of formProperty.getFieldset(fieldsetId).fields">
@@ -177,6 +183,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
 
   private isTabVisible(tab: any): boolean {
     let retour: boolean = true;
+    if (this.formProperty.root.options!==undefined && this.formProperty.root.options.adminMode==true) return true
     if (tab !== undefined && tab.visible != undefined) {
       retour = tab.visible
     }
