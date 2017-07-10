@@ -58,7 +58,7 @@ export class FormPropertyFactory {
         throw new TypeError(`Undefined type ${schema.type}`);
     }
 
-    if (newProperty instanceof PropertyGroup && parent === null) {
+    if (newProperty instanceof PropertyGroup) {
       this.initializeRoot(newProperty);
     }
     this.setRequired(newProperty);

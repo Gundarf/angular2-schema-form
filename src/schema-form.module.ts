@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import {
@@ -34,6 +34,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import {FileUploadModule } from 'ng2-file-upload';
 
+import { DefaultWidgetRegistry } from './defaultwidgets';
+import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 @NgModule({
   imports : [TooltipModule.forRoot(), DatepickerModule.forRoot(), TabsModule.forRoot(),
     CommonModule, FormsModule, ReactiveFormsModule, FileUploadModule],
@@ -91,4 +93,22 @@ import {FileUploadModule } from 'ng2-file-upload';
   ],
   providers: [DatePipe]
 })
-export class SchemaFormModule {}
+export class SchemaFormModule {
+
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SchemaFormModule,
+      providers: [
+        {
+          provide: WidgetRegistry,
+          useClass: DefaultWidgetRegistry
+        },
+        {
+          provide: SchemaValidatorFactory,
+          useClass: ZSchemaValidatorFactory
+        }
+      ]
+    }
+  }
+
+}
