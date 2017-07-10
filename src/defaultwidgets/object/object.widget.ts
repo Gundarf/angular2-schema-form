@@ -28,7 +28,9 @@ import {
   				</div>
   		</fieldset>
   		<br/>
-  		<button *ngFor="let button of getButtons(tab)" (click)="button.action($event)" [class]="getBtnClasses(button)">{{button.label}}</button>
+      <ng-container *ngFor="let button of getButtons(tab)">
+  		  <button *ngIf="button.visible" (click)="button.action($event)" [class]="getBtnClasses(button)">{{button.label}}</button>
+      </ng-container>
   	</tab>
   </tabset>
 
@@ -85,11 +87,19 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
           if (property) {
             let valueCheck = property.valueChanges.map(
               value => {
+                // n'importe qu'elle valeur acceptée
                 if (visibleIf[dependencyPath].indexOf('$ANY$') !== -1) {
                   return value.length > 0;
-                }else {
-                  return visibleIf[dependencyPath].indexOf(value) !== -1;
                 }
+                // valeur trouvée
+                else if (visibleIf[dependencyPath].indexOf(value) !== -1) {
+                  return true;
+                }
+                // valeur vide ou indéfinie acceptée
+                else if (visibleIf[dependencyPath].indexOf('$EMPTY$') !== -1) {
+                  return value == null || value == undefined || value == "";
+                }
+                else return false;
               }
             );
             propertiesBinding.push(valueCheck);
@@ -98,13 +108,13 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
           }
         }
       }
-
       Observable.combineLatest(propertiesBinding, (...values: boolean[]) => {
         return values.indexOf(true) !== -1;
       }).distinctUntilChanged().subscribe((visible) => {
         tab.visible = visible;
       });
     }
+    else tab.visible = true
   }
 
   private parseButtons() {
@@ -120,6 +130,7 @@ export class ObjectWidget extends ObjectLayoutWidget implements OnInit {
       }
       for (let button of this.buttons) {
         this.createButtonCallback(button);
+        this.bindTabVisibility(button);
       }
     }
   }

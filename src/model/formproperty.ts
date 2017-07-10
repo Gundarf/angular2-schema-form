@@ -127,7 +127,7 @@ private requireValidator = (value, prop, form) => {
       let customErrors = customValidator(this.value, this, this.findRoot()) ;
       errors = this.mergeErrors(errors, customErrors);
     }
-    if (this.required)
+    if (this.required && this.visible)
     {
       let requiredErrors = this.requireValidator(this.value, this, this.findRoot());
       errors = this.mergeErrors(errors, requiredErrors);

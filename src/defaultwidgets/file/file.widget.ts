@@ -5,6 +5,7 @@ import { FormControl } from "@angular/forms";
 
 import { ControlWidget } from '../../widget';
 import { FileUploader } from 'ng2-file-upload';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'sf-file-widget',
@@ -17,7 +18,8 @@ import { FileUploader } from 'ng2-file-upload';
   		<input *ngIf="!isUploaded" [name]="name" ng2FileSelect [uploader]="uploader" class="text-widget file-widget" [attr.id]="id" [formControl]="filePickerControl" type="file" [attr.disabled]="schema.readOnly?true:null" >
   		<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
   		<div *ngIf="isUploaded">
-  			{{fileName}}
+  			<a (click)="downloadFile();" style="cursor:pointer"> {{fileName}} </a>
+         <small>({{ templateUploadDate | date: 'dd/MM/yyyy hh:mm' }})</small>
   			<input  [name]="name"  class="text-widget file-widget" [attr.id]="id" [formControl]="control" type="hidden" [attr.disabled]="schema.readOnly?true:null" >
   			<button type="button" class="btn btn-danger btn-xs"
   						(click)="removeFile()">
@@ -88,6 +90,8 @@ export class FileWidget extends ControlWidget implements OnInit {
   public generatedName: string = "";
   public genNameInputName: string = "";
   public fileName: string = "";
+  public uploadDate: number = 0;
+
   public filePickerControl: FormControl = new FormControl("", () => null);
   constructor() {
     super();
@@ -111,7 +115,8 @@ export class FileWidget extends ControlWidget implements OnInit {
       this.isUploaded = true;
       this.generatedName = JSON.parse(response).generated_name;
       this.fileName = item.file.name;
-      this.formProperty.setValue(JSON.stringify({name: this.fileName, generated_name: this.generatedName}), false);
+      this.uploadDate = JSON.parse(response).upload_date;
+      this.formProperty.setValue(JSON.stringify({name: this.fileName, generated_name: this.generatedName, upload_date:this.uploadDate}), false);
       this.control.setValue(this.formProperty.value, {emitEvent: false});
     };
 
@@ -121,6 +126,14 @@ export class FileWidget extends ControlWidget implements OnInit {
         &&  this.formProperty.root.options.rmFct !== null) {
           this.rmFile = this.formProperty.root.options.rmFct;
     }
+
+    if (this.formProperty.root.options !== undefined
+        && this.formProperty.root.options !== null
+        && this.formProperty.root.options.dlFct !== undefined
+        &&  this.formProperty.root.options.dlFct !== null) {
+          this.dlFile = this.formProperty.root.options.dlFct;
+    }
+
   }
 
   removeFile() {
@@ -135,8 +148,18 @@ export class FileWidget extends ControlWidget implements OnInit {
       }
     });
   }
-
+  downloadFile() {
+    let retProm: Promise<any> = this.dlFile(this.generatedName);
+    retProm.then((data) => {
+      var blob = new Blob([data], { type: 'application/octet-stream' });
+      saveAs(blob,this.fileName)
+    });
+  }
   rmFile(fileName: string): Promise<any> {
+    return new Promise<string>((resolve) => {return resolve;});
+  }
+
+  dlFile(fileName: string): Promise<any> {
     return new Promise<string>((resolve) => {return resolve;});
   }
 
@@ -146,8 +169,10 @@ export class FileWidget extends ControlWidget implements OnInit {
       if (newValue !== undefined && newValue !== "") {
         this.isUploaded = true;
         this.control.setValue(this.formProperty.value, {emitEvent: false});
-        this.fileName = JSON.parse(this.formProperty.value).name;
-        this.generatedName = JSON.parse(this.formProperty.value).generated_name;
+        let fileObject = JSON.parse(this.formProperty.value)
+        this.fileName = fileObject.name;
+        this.uploadDate = fileObject.upload_date;
+        this.generatedName = fileObject.generated_name;
       }
       else if (this.formProperty.value !== undefined || this.formProperty.value !== "") {
         this.isUploaded = false;
@@ -164,6 +189,9 @@ export class FileWidget extends ControlWidget implements OnInit {
     });
     this.filePickerControl.valueChanges.subscribe((newValue) => { this.isUploaded = false;});
   }
+  get templateUploadDate() : Date {
+     return this.uploadDate!=undefined ? new Date(this.uploadDate * 1000) : undefined
+   }
 
   private getMyUrl() : string {
     let myUrl: string = (this.formProperty.root.options !== undefined
